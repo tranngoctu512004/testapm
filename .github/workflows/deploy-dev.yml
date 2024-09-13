@@ -3,7 +3,7 @@ name: development-deploy
 on:
   push:
     branches:
-      - dev
+      - master
 
 jobs:
   deploy:
@@ -29,7 +29,7 @@ jobs:
         with:
           context: ./
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/sequelize_postgresql:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/test_apm_elastic:latest
           target: dev
 
       - name: SSH into Server
@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-           cd sequelize_postgresql_sever
+           cd test_apm
            echo "${{ secrets.SERVER_PASSWORD }}" | sudo -S docker-compose pull
            echo "${{ secrets.SERVER_PASSWORD }}" | sudo -S docker-compose up -d
            echo "${{ secrets.SERVER_PASSWORD }}" | sudo -S docker image prune -f
