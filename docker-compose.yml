@@ -1,0 +1,12 @@
+  version: '3.8'
+
+  services:
+    test_apm_elastic:
+      image: trantu30950/test_apm_elastic:latest
+      build: .
+      container_name: test_apm_elastic
+      restart: always
+      ports:
+        - '3000:3000'
+      volumes:
+        - ./.env:/app/.env
